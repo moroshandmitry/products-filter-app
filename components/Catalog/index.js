@@ -10,7 +10,7 @@ const Catalog = () => {
 	return (
 		<div>
 			<Filter />
-			<div className='grid grid-cols-3 gap-4'>
+			<div className='flex flex-wrap justify-around'>
 				{selectedProducts
 					.map((product) => (
 						<ProductCard product={product} key={product.node.name} />

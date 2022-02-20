@@ -24,8 +24,8 @@ const ProductCard = ({ product }) => {
 			<Image
 				className='w-full'
 				src={`https:${url}`}
-				width='480'
-				height='480'
+				width='398'
+				height='398'
 				alt={name}
 			/>
 			<div className='flex justify-between'>

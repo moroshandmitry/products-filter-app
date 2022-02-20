@@ -34,6 +34,16 @@ const Filter = () => {
 							</li>
 						))}
 					</ul>
+
+					{/* <div className='relative pt-1'>
+						<label htmlFor='customRange1' className='form-label'>
+						</label>
+						<input
+							id='customRange1'
+							type='range'
+							className='form-range appearance-none w-full h-6 p-0 bg-transparent focus:outline-none focus:ring-0 focus:shadow-none'
+						/>
+					</div> */}
 				</div>
 			))}
 		</div>
