@@ -20,7 +20,7 @@ const ProductCard = ({ product }) => {
 	} = product;
 
 	return (
-		<div className='w-fit'>
+		<div className='w-fit py-3'>
 			<Image
 				className='w-full'
 				src={`https:${url}`}

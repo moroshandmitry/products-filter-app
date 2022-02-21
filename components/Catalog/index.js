@@ -10,7 +10,7 @@ const Catalog = () => {
 	return (
 		<div>
 			<Filter />
-			<div className='flex flex-wrap justify-around'>
+			<div className='flex flex-wrap justify-around py-3'>
 				{selectedProducts
 					.map((product) => (
 						<ProductCard product={product} key={product.node.name} />
