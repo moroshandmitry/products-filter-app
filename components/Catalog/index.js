@@ -8,7 +8,7 @@ const Catalog = () => {
 	const { selectedProducts, page, limit } = useContext(CatalogContext);
 
 	return (
-		<div>
+		<div className='overflow-x-hidden'>
 			<Filter />
 			<div className='flex flex-wrap justify-around py-3'>
 				{selectedProducts

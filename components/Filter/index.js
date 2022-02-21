@@ -5,16 +5,16 @@ const Filter = () => {
 	const { filters, updateSelectedFilters } = useContext(CatalogContext);
 
 	return (
-		<div>
+		<div className='px-2'>
 			{Object.entries(filters).map((item) => (
 				<div key={item[0]}>
-					<ul className='flex'>
+					<ul className='flex flex-wrap'>
 						<span>{item[0].toUpperCase()}:</span>
 						{item[1].map((filterValue) => (
 							<li
 								key={filterValue}
 								onClick={() => updateSelectedFilters(item[0], filterValue)}
-								className='px-1'
+								className='px-2 pb-2'
 							>
 								{item[0] === 'colors' ? (
 									<label
