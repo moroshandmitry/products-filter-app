@@ -11,7 +11,14 @@ const useCategoryGenerator = (products) =>
 					categories.push(...product?.node?.categoryTags);
 			}
 		}
-		return uniq(categories);
+
+		const uniqCategories = new Set(categories);
+		const uniqCategoriesArray = [...uniqCategories];
+		// console.log(
+		// 	JSON.stringify(uniqCategoriesArray) === JSON.stringify(uniq(categories))
+		// );
+
+		return uniqCategoriesArray;
 	}, [products]);
 
 const useFilterGenerator = (products) =>
