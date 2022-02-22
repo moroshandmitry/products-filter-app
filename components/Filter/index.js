@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import CatalogContext from '../Catalog/Provider';
+import RangeInput from './RangeFilter';
 
 const Filter = () => {
 	const { filters, updateSelectedFilters } = useContext(CatalogContext);
@@ -16,7 +17,7 @@ const Filter = () => {
 								onClick={() => updateSelectedFilters(item[0], filterValue)}
 								className='px-2 pb-2'
 							>
-								{item[0] === 'colors' ? (
+								{item[0] === 'colors' && (
 									<label
 										className='px-1 border rounded-full'
 										style={{ background: `${filterValue}` }}
@@ -28,24 +29,14 @@ const Filter = () => {
 											value={filterValue}
 										/>
 									</label>
-								) : (
-									filterValue
 								)}
 							</li>
 						))}
 					</ul>
-
-					{/* <div className='relative pt-1'>
-						<label htmlFor='customRange1' className='form-label'>
-						</label>
-						<input
-							id='customRange1'
-							type='range'
-							className='form-range appearance-none w-full h-6 p-0 bg-transparent focus:outline-none focus:ring-0 focus:shadow-none'
-						/>
-					</div> */}
 				</div>
 			))}
+
+			<RangeInput />
 		</div>
 	);
 };

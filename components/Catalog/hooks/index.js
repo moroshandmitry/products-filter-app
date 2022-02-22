@@ -21,26 +21,41 @@ const useCategoryGenerator = (products) =>
 		return uniqCategoriesArray;
 	}, [products]);
 
+const usePriceGenerator = (products) => {
+	const prices = [];
+	for (const product of products) {
+		const {
+			node: {
+				shopifyProductEu: {
+					variants: { edges },
+				},
+			},
+		} = product;
+		for (const edge of edges) {
+			const {
+				node: { price },
+			} = edge;
+			prices.push(+price);
+		}
+	}
+	const min = Math.min(...prices);
+	const max = Math.max(...prices);
+	return {
+		max: max,
+		min: min,
+	};
+};
+
 const useFilterGenerator = (products) =>
 	useMemo(() => {
 		const colors = [];
-		const prices = [];
+
 		if (products) {
 			for (const product of products) {
 				const {
-					node: {
-						colorFamily,
-						shopifyProductEu: {
-							variants: { edges },
-						},
-					},
+					node: { colorFamily },
 				} = product;
-				for (const edge of edges) {
-					const {
-						node: { price },
-					} = edge;
-					prices.push(price);
-				}
+
 				if (colorFamily) {
 					for (const colorName of colorFamily) {
 						const { name: color } = colorName;
@@ -49,9 +64,9 @@ const useFilterGenerator = (products) =>
 				}
 			}
 		}
+
 		return {
 			colors: uniq(colors),
-			prices: uniq(prices),
 		};
 	}, [products]);
 
@@ -81,4 +96,9 @@ const useSelectedProductsFilter = (products, filters) =>
 		});
 	}, [products, filters]);
 
-export { useCategoryGenerator, useFilterGenerator, useSelectedProductsFilter };
+export {
+	useCategoryGenerator,
+	useFilterGenerator,
+	useSelectedProductsFilter,
+	usePriceGenerator,
+};

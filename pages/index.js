@@ -6,6 +6,7 @@ import {
 	useCategoryGenerator,
 	useFilterGenerator,
 	useSelectedProductsFilter,
+	usePriceGenerator,
 } from '@/components/Catalog/hooks';
 import { useEffect, useState } from 'react';
 import {
@@ -27,8 +28,10 @@ export async function getServerSideProps(context) {
 function Home({ products }) {
 	const limit = 12;
 	const categories = useCategoryGenerator(products);
+	const prices = usePriceGenerator(products);
 	const filters = useFilterGenerator(products);
 	const [selectedFilters, setSelectedFilters] = useState({});
+	const [selectedPrices, setSelectedPrices] = useState([]);
 	const [page, setPage] = useState(0);
 
 	useEffect(() => {
@@ -53,10 +56,13 @@ function Home({ products }) {
 	const provider = {
 		products,
 		categories,
+		prices,
 		filters,
 		selectedFilters,
 		selectedProducts,
 		updateSelectedFilters,
+		selectedPrices,
+		setSelectedPrices,
 		limit,
 		page,
 		setPage,
