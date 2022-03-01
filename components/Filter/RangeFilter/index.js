@@ -4,35 +4,57 @@ import { Range, getTrackBackground } from 'react-range';
 
 const RangeInput = () => {
 	const [values, setValues] = useState([100, 300]);
-	const { prices, selectedPrices, setSelectedPrices } =
-		useContext(CatalogContext);
+	const {
+		prices,
+		selectedPrices,
+		setSelectedPrices,
+		products,
+		selectedProducts,
+	} = useContext(CatalogContext);
 
-	const STEP = 0.1;
+	console.log('prices', prices);
+
+	const STEP = 1;
 	const MIN = prices.min;
 	const MAX = prices.max;
 
+	const filteredProductsByPrices = (products) => {
+		const filteredProducts = selectedProducts.filter((product) => {
+			const {
+				node: {
+					shopifyProductEu: {
+						variants: { edges },
+					},
+				},
+			} = product;
+
+			const [x, y] = values;
+			const [edge] = edges;
+
+			if (
+				+edge?.node.price >= Math.floor(x) &&
+				+edge?.node.price <= Math.floor(y)
+			) {
+				return product;
+			}
+		});
+
+		console.log('filteredProducts', filteredProducts);
+
+		return filteredProducts;
+	};
+
 	return (
 		<div className='relative pt-1 flex justify-center flex-wrap'>
-			{/* <label htmlFor='customRange1' className='form-label'></label>
-			<input
-				id='customRange1'
-				type='range'
-				min={MIN}
-				max={MAX}
-				value={selectedPrices}
-				step='1'
-				onChange={(e) => setSelectedPrices(e.target.value)}
-				className='form-range appearance-none w-full h-6 p-0 bg-transparent focus:outline-none focus:ring-0 focus:shadow-none'
-			/> */}
-
 			<Range
 				values={values}
 				step={STEP}
 				min={MIN}
 				max={MAX}
-				// rtl={false}
 				onChange={(values) => {
 					setValues(values);
+					setSelectedPrices(values);
+					filteredProductsByPrices(selectedProducts);
 				}}
 				renderTrack={({ props, children }) => (
 					<div
@@ -40,7 +62,7 @@ const RangeInput = () => {
 						onTouchStart={props.onTouchStart}
 						style={{
 							...props.style,
-							height: '36px',
+							height: '20px',
 							display: 'flex',
 							width: '100%',
 						}}
@@ -56,7 +78,6 @@ const RangeInput = () => {
 									colors: ['#ccc', '#548BF4', '#ccc'],
 									min: MIN,
 									max: MAX,
-									// rtl,
 								}),
 								alignSelf: 'center',
 							}}
@@ -70,8 +91,8 @@ const RangeInput = () => {
 						{...props}
 						style={{
 							...props.style,
-							height: '42px',
-							width: '42px',
+							height: '22px',
+							width: '22px',
 							borderRadius: '4px',
 							backgroundColor: '#FFF',
 							display: 'flex',
